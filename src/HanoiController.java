@@ -1,53 +1,22 @@
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
-
 public class HanoiController {
     private final List<Tower> towers;
-    private static List<Disk> diskNames = newArrayList(Disk.A, Disk.B, Disk.C, Disk.D);
-    private Disk lastDiskToMove = Disk.D;
+    private Disk lastDiskToMove = Disk.EMPTY;
 
-    public HanoiController(int numberOfDisks, int numberOfTowers) {
-        this.towers = newArrayList();
-
-        towers.add(createFirstTower(numberOfDisks));
-
-        for (int tower = 0; tower< numberOfTowers-1; tower++){
-            towers.add(new Tower(newArrayList()));
-        }
+    public HanoiController(List<Tower> towers) {
+        this.towers = towers;
     }
 
-    public String printDiskLocations() {
-        String output = "";
-        int count = 1;
-        for (Tower tower : towers){
-            if (tower.getNumberOfDisks()!=0){
-                output += "T" + count + ": " + tower.printDisks() + ", ";
-            }
-            else {
-                output += "T" + count + ": 0 disks, ";
-            }
-            count++;
-        }
-        String outputWithOutTrailingComma = output.substring(0, output.length() - 2);
-        return outputWithOutTrailingComma;
-    }
-
-    public void move() {
+    public List<Tower> move() {
         for (int towerIndex= 0; towerIndex<towers.size(); towerIndex++) {
             Tower towerToRemoveFrom = towers.get(towerIndex);
             Disk topDisk = towerToRemoveFrom.getTopDisk();
             if (diskWasSuccessfullyMoved(towerToRemoveFrom, topDisk, towerIndex)) break;
         }
+        return towers;
     }
 
-    private Tower createFirstTower(int numberOfDisks) {
-        List<Disk> disks = newArrayList();
-        for (int disk =0; disk< numberOfDisks; disk++){
-            disks.add(diskNames.get(disk));
-        }
-        return new Tower(disks);
-    }
 
     private boolean diskWasSuccessfullyMoved(Tower towerToRemoveFrom, Disk topDisk, int towerIndex) {
         if (topDisk == lastDiskToMove || topDisk == Disk.EMPTY){
@@ -56,16 +25,14 @@ public class HanoiController {
         int attempts = 0;
         while (attempts < towers.size()){
             attempts++;
-            int index = (towerIndex + 1) % (towers.size());
-            towerIndex++;
-            Tower tower = towers.get(index);
-            if (tower != towerToRemoveFrom) {
-                if (canDiskMoveToThisTower(tower, topDisk)) {
-                    towerToRemoveFrom.removeTopDisk();
-                    tower.addDiskToTop(topDisk);
-                    lastDiskToMove = topDisk;
-                    return true;
-                }
+            int nextTowerIndex = (towerIndex++) % (towers.size());
+            Tower tower = towers.get(nextTowerIndex);
+
+            if (tower != towerToRemoveFrom && canDiskMoveToThisTower(tower, topDisk)) {
+                towerToRemoveFrom.removeTopDisk();
+                tower.addDiskToTop(topDisk);
+                lastDiskToMove = topDisk;
+                return true;
             }
 
         }
