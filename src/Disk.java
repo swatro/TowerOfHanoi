@@ -4,6 +4,11 @@ public enum Disk {
     B(2),
     C(3),
     D(4),
+    E(5),
+    F(6),
+    G(7),
+    H(8),
+    I(9),
     EMPTY(0);
 
     private final int diskSize;

@@ -3,15 +3,17 @@ import java.util.List;
 import static com.google.common.collect.Lists.newArrayList;
 
 public class Runner {
-    private static List<Disk> diskNames = newArrayList(Disk.A, Disk.B, Disk.C, Disk.D);
+    private static List<Disk> diskNames = newArrayList(Disk.A, Disk.B, Disk.C, Disk.D, Disk.E, Disk.F, Disk.G, Disk.H, Disk.I);
 
     public static void main(String[] args){
         Runner runner = new Runner();
-        List<Tower> startTowers = runner.createStartTowersWith(4, 3);
+        int numberOfDisks = 9;
+        int stepToTheSolution = (int)(Math.pow(2,numberOfDisks))-1;
+        List<Tower> startTowers = runner.createStartTowersWith(numberOfDisks, 3);
         HanoiController hanoiController = new HanoiController(startTowers);
-        for (int i= 1; i<=15; i++){
+        for (int i= 1; i<=stepToTheSolution; i++){
             List<Tower> towers = hanoiController.move();
-            System.out.println("move " + i + ": " + new Printer().printDiskLocations(towers));
+            System.out.println("Move " + i + ": " + new Printer().printDiskLocations(towers));
 
         }
     }

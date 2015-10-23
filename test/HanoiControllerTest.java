@@ -18,7 +18,7 @@ public class HanoiControllerTest {
     }
 
     @Test
-    public void shoudMoveDiskAToSecondTowerOnFirstMove() throws Exception {
+    public void shouldMoveDiskAToSecondTowerOnFirstMove() throws Exception {
         HanoiController controller = new HanoiController(startTowers);
         List<Tower> towers = controller.move();
         assertThat(new Printer().printDiskLocations(towers), is("T1: BCD, T2: A, T3: 0 disks"));
