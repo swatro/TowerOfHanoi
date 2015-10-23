@@ -3,11 +3,10 @@ import java.util.List;
 import static com.google.common.collect.Lists.newArrayList;
 
 public class Runner {
-    private static List<Disk> diskNames = newArrayList(Disk.A, Disk.B, Disk.C, Disk.D, Disk.E, Disk.F, Disk.G, Disk.H, Disk.I);
 
     public static void main(String[] args){
         Runner runner = new Runner();
-        int numberOfDisks = 5;
+        int numberOfDisks = 12;
         int stepToTheSolution = (int)(Math.pow(2,numberOfDisks))-1;
         List<Tower> startTowers = runner.createStartTowersWith(numberOfDisks, 3);
         HanoiController hanoiController = new HanoiController(startTowers, numberOfDisks);
@@ -29,8 +28,8 @@ public class Runner {
 
     private Tower createFirstTower(int numberOfDisks) {
         List<Disk> disks = newArrayList();
-        for (int disk =0; disk< numberOfDisks; disk++){
-            disks.add(diskNames.get(disk));
+        for (int diskSize =0; diskSize< numberOfDisks; diskSize++){
+            disks.add(new Disk(diskSize));
         }
         return new Tower(disks);
     }

@@ -33,6 +33,6 @@ public class Tower {
     }
 
     public Disk getTopDisk() {
-        return (disks.size()==0) ? Disk.EMPTY : disks.get(0);
+        return (disks.size()==0) ? Disk.EMPTY_DISK : disks.get(0);
     }
 }

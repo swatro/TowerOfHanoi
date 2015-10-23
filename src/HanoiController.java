@@ -3,7 +3,7 @@ import java.util.List;
 public class HanoiController {
     private final List<Tower> towers;
     private final int totalNumberOfDisks;
-    private Disk lastDiskToMove = Disk.EMPTY;
+    private Disk lastDiskToMove = new Disk(-1);
 
     public HanoiController(List<Tower> towers, int totalNumberOfDisks) {
         this.towers = towers;
@@ -21,7 +21,7 @@ public class HanoiController {
 
 
     private boolean diskWasSuccessfullyMoved(Tower towerToRemoveFrom, Disk topDisk, int towerIndex) {
-        if (topDisk == lastDiskToMove || topDisk == Disk.EMPTY){
+        if (topDisk == lastDiskToMove || topDisk == Disk.EMPTY_DISK){
             return false;
         }
         int attempts = 0;
