@@ -5,6 +5,5 @@
 Problem Description: https://en.wikipedia.org/wiki/Tower_of_Hanoi#Simpler_statement_of_iterative_solution
 
 Currently State: 
-- Working for 3 towers and with even number of disk
-- With odd number of disks the ends with the correct number of moves but on the middle tower :(
+- Working with 3 towers
 - Limited to 9 disks
