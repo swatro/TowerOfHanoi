@@ -5,5 +5,4 @@
 Problem Description: https://en.wikipedia.org/wiki/Tower_of_Hanoi#Simpler_statement_of_iterative_solution
 
 Currently State: 
-- Working with 3 towers
-- Limited to 9 disks
+- Working with 3 towers and any number of disks
