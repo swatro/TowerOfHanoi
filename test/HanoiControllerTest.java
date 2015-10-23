@@ -19,14 +19,23 @@ public class HanoiControllerTest {
 
     @Test
     public void shouldMoveDiskAToSecondTowerOnFirstMove() throws Exception {
-        HanoiController controller = new HanoiController(startTowers);
+        HanoiController controller = new HanoiController(startTowers, 4);
         List<Tower> towers = controller.move();
         assertThat(new Printer().printDiskLocations(towers), is("T1: BCD, T2: A, T3: 0 disks"));
     }
 
     @Test
+    public void shouldMoveDiskAToThirdTowerOnFirstMoveWith3Disk() throws Exception {
+        Runner runner = new Runner();
+        List<Tower> startTowersWithThreeDisks = runner.createStartTowersWith(3, 3);
+        HanoiController controller = new HanoiController(startTowersWithThreeDisks, 3);
+        List<Tower> towers = controller.move();
+        assertThat(new Printer().printDiskLocations(towers), is("T1: BC, T2: 0 disks, T3: A"));
+    }
+
+    @Test
     public void shoudMoveDiskBToThirdTowerOnSecondMove() throws Exception {
-        HanoiController controller = new HanoiController(startTowers);
+        HanoiController controller = new HanoiController(startTowers, 4);
         controller.move();
         List<Tower> towers = controller.move();
         assertThat(new Printer().printDiskLocations(towers), is("T1: CD, T2: A, T3: B"));
@@ -34,7 +43,7 @@ public class HanoiControllerTest {
 
     @Test
     public void shouldMoveDiskAToThirdTowerOnThirdMove() throws Exception {
-        HanoiController controller = new HanoiController(startTowers);
+        HanoiController controller = new HanoiController(startTowers, 4);
         controller.move();
         controller.move();
         List<Tower> towers = controller.move();
@@ -43,7 +52,7 @@ public class HanoiControllerTest {
 
     @Test
     public void shouldMoveDiskCToSecondTowerOnFourthMove() throws Exception {
-        HanoiController controller = new HanoiController(startTowers);
+        HanoiController controller = new HanoiController(startTowers, 4);
         controller.move();
         controller.move();
         controller.move();
@@ -53,7 +62,7 @@ public class HanoiControllerTest {
 
     @Test
     public void shouldMoveDiskAToFirstTowerOnFifthMove() throws Exception {
-        HanoiController controller = new HanoiController(startTowers);
+        HanoiController controller = new HanoiController(startTowers, 4);
         controller.move();
         controller.move();
         controller.move();
@@ -64,7 +73,7 @@ public class HanoiControllerTest {
 
     @Test
     public void shouldMoveDiskBToSecondTowerOnSixthMove() throws Exception {
-        HanoiController controller = new HanoiController(startTowers);
+        HanoiController controller = new HanoiController(startTowers, 4);
         controller.move();
         controller.move();
         controller.move();
@@ -76,7 +85,7 @@ public class HanoiControllerTest {
 
     @Test
     public void shouldMoveDiskAToSecondTowerOnSeventhMove() throws Exception {
-        HanoiController controller = new HanoiController(startTowers);
+        HanoiController controller = new HanoiController(startTowers, 4);
         controller.move();
         controller.move();
         controller.move();
@@ -89,7 +98,7 @@ public class HanoiControllerTest {
 
     @Test
     public void shouldMoveDiskDToThirdTowerOnEightMoveMove() throws Exception {
-        HanoiController controller = new HanoiController(startTowers);
+        HanoiController controller = new HanoiController(startTowers, 4);
         controller.move();
         controller.move();
         controller.move();
@@ -103,7 +112,7 @@ public class HanoiControllerTest {
 
     @Test
     public void shouldFinishMovingAllDisksIn15Moves() throws Exception {
-        HanoiController controller = new HanoiController(startTowers);
+        HanoiController controller = new HanoiController(startTowers, 4);
         List<Tower> towers = newArrayList();
         for (int i=1; i<=15; i++){
             towers = controller.move();

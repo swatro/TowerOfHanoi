@@ -2,10 +2,12 @@ import java.util.List;
 
 public class HanoiController {
     private final List<Tower> towers;
+    private final int totalNumberOfDisks;
     private Disk lastDiskToMove = Disk.EMPTY;
 
-    public HanoiController(List<Tower> towers) {
+    public HanoiController(List<Tower> towers, int totalNumberOfDisks) {
         this.towers = towers;
+        this.totalNumberOfDisks = totalNumberOfDisks;
     }
 
     public List<Tower> move() {
@@ -25,7 +27,8 @@ public class HanoiController {
         int attempts = 0;
         while (attempts < towers.size()){
             attempts++;
-            int nextTowerIndex = (towerIndex++) % (towers.size());
+            towerIndex = incrementTowerIndex(towerIndex);
+            int nextTowerIndex = (towerIndex) % (towers.size());
             Tower tower = towers.get(nextTowerIndex);
 
             if (tower != towerToRemoveFrom && canDiskMoveToThisTower(tower, topDisk)) {
@@ -38,6 +41,18 @@ public class HanoiController {
         }
         return false;
     }
+
+    private int incrementTowerIndex(int towerIndex) {
+        if (totalNumberOfDisks % 2 ==0) {
+            return towerIndex+1;
+        }
+        else{
+            int newIndex = towerIndex-1;
+            if (newIndex < 0) { newIndex += towers.size(); }
+            return newIndex;
+        }
+    }
+
 
     private boolean canDiskMoveToThisTower(Tower tower, Disk topDisk) {
         List<Disk> disks = tower.getDisks();
